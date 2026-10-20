@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>002 — Commerce Film | CSS Motion Library</title>
+  <script>if (new URLSearchParams(location.search).has('embed')) document.documentElement.classList.add('is-embedded');</script>
+  <link rel="stylesheet" href="../../src/demo.css">
+  <link rel="stylesheet" href="animation.css">
+</head>
+<body>
+  <nav class="demo-nav"><a href="../../">← Library</a><span>002 / Commerce Film</span><a href="../001-commerce-storyboard/">Original edition ↗</a></nav>
+  <main>
+    <section class="film" data-motion-player data-duration="30" aria-labelledby="film-title">
+      <div class="film__screen" data-motion-stage>
+        <div class="film__overview">
+          <span class="film__eyebrow">Commerce Film / CSS Motion Library</span>
+          <h1 id="film-title">Better commerce.<br><em>By design.</em></h1>
+          <p>Audit the store. Make a plan. Build with purpose. Measure and refine.</p>
+        </div>
+        <div class="film__frame" aria-hidden="true"><span>CSS Motion Library</span><span>Commerce Film / 002</span></div>
+        <div class="film__shots" aria-hidden="true">
+          <div class="film__shot film__shot--open" style="--shot:0">
+            <div class="film__disc"></div>
+            <span class="film__eyebrow film__intro-label">A small film. Made of CSS.</span>
+            <div class="film__opening-type"><div><span>COMMERCE</span></div><div><span>IN <em>MOTION.</em></span></div></div>
+            <p class="film__subtitle">From the first question to what comes next.</p>
+            <div class="film__ticker">AUDIT / PLAN / BUILD / MEASURE / AUDIT / PLAN / BUILD / MEASURE /</div>
+          </div>
+          <div class="film__shot film__shot--audit" style="--shot:1">
+            <span class="film__backword">LOOK CLOSER</span>
+            <div class="film__shot-copy"><span class="film__eyebrow">01 / Audit</span><h2>Find the<br><em>friction.</em></h2><p>Before changing the store,<br>understand what is in the way.</p></div>
+            <div class="film__audit-window"><div class="film__window-top"><span>● ● ●</span><span>Store diagnostics</span></div><div class="film__audit-item"><span>Storefront</span><b>Inspect</b></div><div class="film__audit-item"><span>Checkout</span><b>Inspect</b></div><div class="film__audit-item"><span>Integrations</span><b>Inspect</b></div><div class="film__scan-line"></div><div class="film__crosshair"></div></div>
+            <span class="film__corner-note">The right questions come first.</span>
+          </div>
+          <div class="film__shot film__shot--plan" style="--shot:2">
+            <div class="film__blueprint-grid"></div>
+            <svg class="film__wires" viewBox="0 0 1000 600" preserveAspectRatio="none"><path d="M0 300H360V120H740V300H1000 M360 300V480H740V300 M740 120V480"/></svg>
+            <div class="film__plan-node film__plan-node--one">STOREFRONT</div><div class="film__plan-node film__plan-node--two">CHECKOUT</div><div class="film__plan-node film__plan-node--three">INTEGRATIONS</div>
+            <div class="film__shot-copy"><span class="film__eyebrow">02 / Architecture</span><h2>Make<br><em>a plan.</em></h2><p>A clear direction.<br>Every connection considered.</p></div>
+          </div>
+          <div class="film__shot film__shot--build" style="--shot:3">
+            <span class="film__eyebrow film__build-label">03 / Build</span>
+            <div class="film__build-type">FROM PLAN<br><em>TO LIVE.</em></div>
+            <div class="film__browser"><div class="film__window-top"><span>● ● ●</span><span>YOUR NEXT STORE</span><span>↗</span></div><div class="film__shop-nav"><strong>STUDIO / GOODS</strong><span>Collection &nbsp; About &nbsp; Bag (0)</span></div><div class="film__shop"><div class="film__product-art"><svg viewBox="0 0 200 240"><path d="M65 62V35Q100 5 135 35V62L167 100V217H33V100Z"/><path d="M65 62Q100 89 135 62M66 35Q100 63 134 35"/></svg><span>OBJECT / 001</span></div><div class="film__product-info"><span>MADE FOR EVERY DAY</span><h3>Less noise.<br>More purpose.</h3><i></i><i></i><div>Explore the collection ↗</div></div></div></div>
+            <span class="film__corner-note">Design. Development. The details between.</span>
+          </div>
+          <div class="film__shot film__shot--measure" style="--shot:4">
+            <div class="film__measure-ring"></div>
+            <div class="film__shot-copy"><span class="film__eyebrow">04 / Measure</span><h2>Learn.<br>Refine.<br><em>Repeat.</em></h2></div>
+            <div class="film__chart"><span>OBSERVE → LEARN → REFINE</span><div class="film__bars"><i style="--bar:0;--height:32%"></i><i style="--bar:1;--height:48%"></i><i style="--bar:2;--height:40%"></i><i style="--bar:3;--height:65%"></i><i style="--bar:4;--height:58%"></i><i style="--bar:5;--height:80%"></i></div><small>Illustrative motion graphic · no performance claims</small></div>
+          </div>
+          <div class="film__shot film__shot--end" style="--shot:5">
+            <div class="film__end-orbit"></div><span class="film__eyebrow">A clear path forward.</span><div class="film__end-type">BETTER<br>COMMERCE.<br><em>BY DESIGN.</em></div><p>Audit → Plan → Build → Measure</p><span class="film__end-credit">CSS Motion Library / 002</span>
+          </div>
+        </div>
+        <div class="film__cut" aria-hidden="true"></div>
+        <span class="film__sr-only">A thirty-second CSS film in six shots: an opening title, store audit, architecture plan, store build, measurement, and a closing title. The chart is illustrative.</span>
+      </div>
+      <div class="film__controls" data-motion-controls hidden>
+        <button type="button" data-motion-toggle aria-label="Pause animation">Ⅱ Pause</button>
+        <button type="button" data-motion-restart aria-label="Replay animation from the beginning">↺ Replay</button>
+        <label class="film__seek-label"><span class="film__sr-only">Animation position in seconds</span><input data-motion-seek type="range" min="0" max="30" step="0.1" value="0" aria-label="Animation position in seconds"></label>
+        <output data-motion-time>0:00 / 0:30</output>
+        <label class="film__speed"><span class="film__sr-only">Playback speed</span><select data-motion-speed aria-label="Playback speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option></select></label>
+      </div>
+    </section>
+  </main>
+  <footer class="demo-footer">30-second CSS film · Six shots · Native playback controls · <a href="animation.css">View CSS</a></footer>
+  <script type="module" src="../../src/auto.js"></script>
+</body>
+</html>

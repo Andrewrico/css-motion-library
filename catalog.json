@@ -1,0 +1,22 @@
+[
+  {
+    "id": "001-commerce-storyboard",
+    "title": "Commerce Storyboard",
+    "description": "Four illustrated steps, gentle transitions and restrained motion.",
+    "duration": 24,
+    "edition": "Original",
+    "entry": "examples/001-commerce-storyboard/index.html",
+    "styles": "examples/001-commerce-storyboard/animation.css",
+    "tags": ["process", "typography", "cards", "CSS"]
+  },
+  {
+    "id": "002-commerce-film",
+    "title": "Commerce Film",
+    "description": "Six cinematic shots, kinetic type, camera moves and a seekable player.",
+    "duration": 30,
+    "edition": "New",
+    "entry": "examples/002-commerce-film/index.html",
+    "styles": "examples/002-commerce-film/animation.css",
+    "tags": ["cinematic", "typography", "CSS", "timeline"]
+  }
+]

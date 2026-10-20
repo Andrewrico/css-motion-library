@@ -1,0 +1,98 @@
+{# Native text and CSS motion replace the intro MP4; no media request is needed. #}
+{% set introSteps = [
+  { label: 'Audit', title: 'Find the<br><span>friction.</span>', text: 'Understand what is holding your Shopify store back.' },
+  { label: 'Plan', title: 'Map the<br><span>next move.</span>', text: 'Turn the findings into a clear architecture plan.' },
+  { label: 'Build', title: 'Build with<br><span>purpose.</span>', text: 'Bring the plan to life across your store and its integrations.' },
+  { label: 'Measure', title: 'Keep getting<br><span>better.</span>', text: 'Measure what changed. Use the findings to guide what comes next.' }
+] %}
+<section id="intro-video" class="commerce-intro" aria-labelledby="commerce-intro-title" data-commerce-intro>
+  <div class="commerce-intro__inner">
+    <div class="commerce-intro__masthead">
+      <p>Andrew Rico <span>/ Shopify &amp; AI Commerce</span></p>
+      <span class="commerce-intro__edition" aria-hidden="true">The approach / 01—04</span>
+    </div>
+    <div class="commerce-intro__stage" id="commerce-intro-stage">
+      <div class="commerce-intro__overview">
+        <p class="commerce-intro__eyebrow">A clear path forward</p>
+        <h2 id="commerce-intro-title">Audit. Plan.<br><span>Build. Measure.</span></h2>
+        <p class="commerce-intro__description">A clear plan for your Shopify store, from the first audit to ongoing improvement.</p>
+      </div>
+      {% for step in introSteps %}
+      <div class="commerce-intro__scene commerce-intro__scene--{{ loop.index }}" style="--step: {{ loop.index0 }}" aria-hidden="true">
+        <div class="commerce-intro__copy">
+          <p class="commerce-intro__eyebrow">0{{ loop.index }} / {{ step.label }}</p>
+          <p class="commerce-intro__headline">{{ step.title | safe }}</p>
+          <p class="commerce-intro__description">{{ step.text }}</p>
+        </div>
+        <div class="commerce-intro__visual commerce-intro__visual--{{ step.label | lower }}">
+          <span class="commerce-intro__orbit"></span>
+          <div class="commerce-intro__diagram">
+            {% if loop.index == 1 %}
+            <div class="commerce-intro__diagram-top"><span>Store audit</span><span>↗</span></div>
+            <div class="commerce-intro__audit-row"><span>Storefront</span><i></i></div>
+            <div class="commerce-intro__audit-row"><span>Checkout</span><i></i></div>
+            <div class="commerce-intro__audit-row"><span>Integrations</span><i></i></div>
+            <div class="commerce-intro__scan"></div>
+            {% elif loop.index == 2 %}
+            <div class="commerce-intro__diagram-top"><span>Architecture plan</span><span>↗</span></div>
+            <div class="commerce-intro__map"><span>Storefront</span><i></i><div><span>Checkout</span><span>Integrations</span></div><i></i><span>Customer experience</span></div>
+            {% elif loop.index == 3 %}
+            <div class="commerce-intro__diagram-top"><span>Store build</span><span>•••</span></div>
+            <div class="commerce-intro__store"><div class="commerce-intro__product"></div><div class="commerce-intro__product-copy"><i></i><i></i><i></i><span>Add to cart +</span></div></div>
+            <div class="commerce-intro__build-label">Design → Development → Launch</div>
+            {% else %}
+            <div class="commerce-intro__diagram-top"><span>Measure &amp; improve</span><span>↗</span></div>
+            <div class="commerce-intro__bars"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="commerce-intro__chart-label">Observe → Learn → Refine</div>
+            {% endif %}
+          </div>
+          <span class="commerce-intro__visual-note">{% if loop.index == 4 %}Illustrative process{% else %}Built around your business{% endif %}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="commerce-intro__footer">
+      <ol class="commerce-intro__steps">
+        {% for step in introSteps %}
+        <li style="--step: {{ loop.index0 }}"><span class="commerce-intro__step-number" aria-hidden="true">0{{ loop.index }}</span> {{ step.label }}<span class="commerce-intro__sr-only">: {{ step.text }}</span></li>
+        {% endfor %}
+      </ol>
+      <button class="commerce-intro__toggle" type="button" aria-controls="commerce-intro-stage" hidden>
+        <span data-intro-toggle-icon aria-hidden="true">Ⅱ</span>
+        <span data-intro-toggle-label>Pause animation</span>
+      </button>
+    </div>
+  </div>
+</section>
+<script>
+  (function () {
+    var intro = document.querySelector('[data-commerce-intro]');
+    if (!intro) return;
+    var button = intro.querySelector('.commerce-intro__toggle');
+    var label = intro.querySelector('[data-intro-toggle-label]');
+    var icon = intro.querySelector('[data-intro-toggle-icon]');
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var userPaused = false;
+    var inView = !('IntersectionObserver' in window);
+    function update() {
+      var reduce = reducedMotion.matches || document.documentElement.getAttribute('data-a11y-reduce-motion') === 'true';
+      intro.classList.toggle('is-enhanced', !reduce);
+      intro.classList.toggle('is-playing', !reduce && inView && !document.hidden && !userPaused);
+      button.hidden = reduce;
+      label.textContent = userPaused ? 'Resume animation' : 'Pause animation';
+      icon.textContent = userPaused ? '▷' : 'Ⅱ';
+    }
+    button.addEventListener('click', function () { userPaused = !userPaused; update(); });
+    document.addEventListener('visibilitychange', update);
+    if (reducedMotion.addEventListener) reducedMotion.addEventListener('change', update);
+    else reducedMotion.addListener(update);
+    new MutationObserver(update).observe(document.documentElement, { attributes: true, attributeFilter: ['data-a11y-reduce-motion'] });
+    update();
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        inView = entries[0].isIntersecting;
+        update();
+      }, { threshold: 0.15 }).observe(intro);
+    }
+  })();
+</script>

@@ -1,0 +1,14 @@
+{
+  "name": "css-motion-library",
+  "version": "0.1.0",
+  "description": "A growing library of cinematic, accessible HTML and CSS animations.",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "test": "node --test",
+    "check": "node scripts/check.mjs"
+  }
+}

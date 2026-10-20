@@ -1,0 +1,12 @@
+:root { color-scheme: dark; --color-primary: #fffc00; --font-family-1: system-ui, sans-serif; --font-family-2: 'Arial Black', 'Helvetica Neue', system-ui, sans-serif; }
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: #090b0a; color: #edeee7; font-family: system-ui, sans-serif; }
+button, input { font: inherit; }
+a { color: inherit; }
+.demo-nav { display: flex; gap: 24px; align-items: center; justify-content: space-between; padding: 22px 4vw; border-bottom: 1px solid #30372b; font-size: 12px; }
+.demo-nav a { text-decoration: none; }
+.demo-nav a:hover { color: #e6ee45; }
+.demo-footer { padding: 24px 4vw; color: #a9b3a4; font-size: 12px; }
+.demo-footer a { margin-left: 20px; }
+.is-embedded .demo-nav, .is-embedded .demo-footer { display: none; }
+@media (max-width: 600px) { .demo-nav > span { display: none; } }
