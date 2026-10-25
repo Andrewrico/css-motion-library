@@ -1,6 +1,7 @@
 # CSS Motion Library
 
 [![CI](https://github.com/Andrewrico/css-motion-library/actions/workflows/ci.yml/badge.svg)](https://github.com/Andrewrico/css-motion-library/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/css-motion-library.svg)](https://www.npmjs.com/package/css-motion-library)
 [![License: MIT](https://img.shields.io/badge/license-MIT-black.svg)](LICENSE)
 
 **Copy-paste CSS animations with a tiny, accessible playback controller.**
@@ -28,6 +29,19 @@ No framework, no build step, no runtime dependencies.
 
 Each entry folder has a README with its timeline, theme variables and customization notes.
 [`catalog.json`](catalog.json) is the machine-readable index.
+
+## Install
+
+Copy files straight from this repo, or install from npm:
+
+```sh
+npm install css-motion-library
+```
+
+```js
+import {createMotionPlayer} from 'css-motion-library/player.js';
+import 'css-motion-library/examples/003-kinetic-headline/animation.css'; // with a CSS-aware bundler
+```
 
 ## Use an animation
 

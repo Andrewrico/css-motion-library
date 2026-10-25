@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 — 2026-10-24
+
+- First npm release. Package exports `css-motion-library/player.js`, every entry file under
+  `css-motion-library/examples/*`, and `catalog.json`. The original site source of entry 001
+  (`source.njk`) stays in the repository but is left out of the npm package.
+
 ## 1.0.0 — 2026-10-24
 
 First public release.
