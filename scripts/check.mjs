@@ -7,7 +7,7 @@ const errors = [];
 const files = [];
 async function walk(dir) {
   for (const item of await readdir(dir,{withFileTypes:true})) {
-    if (item.name.startsWith('.') || ['node_modules','dist','coverage','test-results'].includes(item.name)) continue;
+    if (item.name.startsWith('.') || ['node_modules','dist','_site','coverage','test-results'].includes(item.name)) continue;
     const file = path.join(dir,item.name);
     if (item.isDirectory()) await walk(file); else files.push(file);
   }

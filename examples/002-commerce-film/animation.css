@@ -137,6 +137,8 @@
 @keyframes mvl-ring { to { transform:rotate(180deg); } }
 @keyframes mvl-end-orbit { 0% { transform:scale(.65); } 16.6%,100% { transform:scale(1.15); } }
 @keyframes mvl-cut { 0%,90% { transform:translateX(-110%); } 96% { transform:translateX(0); } 100% { transform:translateX(110%); } }
+/* Standalone page: shrink the 16:9 frame so the controls stay on screen. */
+@media (min-width:601px) { html:not(.is-embedded) .film { max-width:max(480px,calc((100svh - 130px) * 16 / 9)); margin-inline:auto; } }
 @media (max-width:600px) {
   .film__screen { aspect-ratio:3 / 4; }
   .film__frame { padding:5% 6%; font-size:8px; }

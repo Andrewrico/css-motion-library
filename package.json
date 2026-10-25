@@ -1,14 +1,31 @@
 {
   "name": "css-motion-library",
-  "version": "0.1.0",
-  "description": "A growing library of cinematic, accessible HTML and CSS animations.",
+  "version": "1.0.0",
+  "description": "Copy-paste CSS animations with a tiny, accessible playback controller. No framework, no build step.",
+  "keywords": ["css", "animation", "motion", "keyframes", "web-animations", "accessibility", "reduced-motion"],
+  "homepage": "https://andrewrico.github.io/css-motion-library/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andrewrico/css-motion-library.git"
+  },
+  "bugs": "https://github.com/Andrewrico/css-motion-library/issues",
+  "author": "Andrew Rico",
   "type": "module",
   "license": "MIT",
-  "private": true,
-  "engines": { "node": ">=22" },
+  "exports": {
+    "./player.js": "./src/player.js"
+  },
+  "files": ["src/", "examples/", "catalog.json", "LICENSE", "README.md"],
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "node scripts/serve.mjs",
     "test": "node --test",
-    "check": "node scripts/check.mjs"
+    "check": "node scripts/check.mjs",
+    "test:browser": "node scripts/browser-check.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1"
   }
 }

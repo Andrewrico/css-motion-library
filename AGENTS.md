@@ -10,6 +10,6 @@ Standalone open-source repository; no dependency on the original website/workspa
 - Keep examples neutral and reusable. No private client names, analytics, credentials or invented results.
 - Third-party effects need their own license review and attribution. Animate.css 4.1.1 is
   Hippocratic-2.1; it is an optional integration, not bundled or relicensed as MIT.
-- Run `npm test` and `npm run check`. Check desktop/mobile and seeking in a real browser when available;
-  document unavailable browser verification rather than claiming it passed.
+- Run `npm test`, `npm run check` and `npm run test:browser` (Playwright). Still look at new entries
+  yourself; document any verification you could not run rather than claiming it passed.
 - No deployment, recurring workflows, publishing to npm or remote push without authorization.

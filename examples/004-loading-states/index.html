@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>004 — Loading States | CSS Motion Library</title>
+  <script>if (new URLSearchParams(location.search).has('embed')) document.documentElement.classList.add('is-embedded');</script>
+  <link rel="stylesheet" href="../../src/demo.css">
+  <link rel="stylesheet" href="animation.css">
+</head>
+<body>
+  <nav class="demo-nav">
+    <a href="../../">← Library</a>
+    <span>004 / Loading States</span>
+    <a href="../005-orbit-diagram/">Next: Orbit Diagram ↗</a>
+  </nav>
+  <main>
+    <section class="ls" data-motion-player data-duration="6" aria-labelledby="ls-title">
+      <h1 id="ls-title" class="ls__sr-only">Loading States</h1>
+      <div class="ls__stage" data-motion-stage>
+        <div class="ls__overview">
+          <article class="ls__card">
+            <div class="ls__demo ls__skeleton-card" aria-hidden="true">
+              <span class="ls__avatar"></span>
+              <span class="ls__line ls__line--long"></span>
+              <span class="ls__line ls__line--medium"></span>
+              <span class="ls__line ls__line--short"></span>
+            </div>
+            <p class="ls__label">Skeleton</p>
+          </article>
+          <article class="ls__card">
+            <div class="ls__demo ls__progress-demo" aria-hidden="true">
+              <div class="ls__progress-track"><span class="ls__progress-fill"></span></div>
+              <div class="ls__ticks">
+                <span class="ls__ticks-base">
+                  <span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span>
+                  <span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span>
+                </span>
+                <span class="ls__ticks-fill">
+                  <span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span>
+                  <span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span>
+                </span>
+              </div>
+            </div>
+            <p class="ls__label">Progress</p>
+          </article>
+          <article class="ls__card">
+            <div class="ls__demo ls__dots-demo" aria-hidden="true">
+              <span class="ls__dot"></span>
+              <span class="ls__dot"></span>
+              <span class="ls__dot"></span>
+            </div>
+            <p class="ls__label">Dots</p>
+          </article>
+          <article class="ls__card">
+            <div class="ls__demo ls__success-demo" aria-hidden="true">
+              <svg class="ls__success-icon" viewBox="0 0 24 24" focusable="false">
+                <circle class="ls__spinner" cx="12" cy="12" r="9" pathLength="100"></circle>
+                <path class="ls__check" pathLength="40" d="M5 12.5 10 17.5 20 7"></path>
+              </svg>
+            </div>
+            <p class="ls__label">Success</p>
+          </article>
+        </div>
+
+        <div class="ls__scene" aria-hidden="true">
+          <article class="ls__card">
+            <div class="ls__demo ls__skeleton-card">
+              <span class="ls__avatar"></span>
+              <span class="ls__line ls__line--long"></span>
+              <span class="ls__line ls__line--medium"></span>
+              <span class="ls__line ls__line--short"></span>
+            </div>
+            <p class="ls__label">Skeleton</p>
+          </article>
+          <article class="ls__card">
+            <div class="ls__demo ls__progress-demo">
+              <div class="ls__progress-track"><span class="ls__progress-fill"></span></div>
+              <div class="ls__ticks">
+                <span class="ls__ticks-base">
+                  <span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span>
+                  <span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span>
+                </span>
+                <span class="ls__ticks-fill">
+                  <span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span>
+                  <span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span><span class="ls__tick"></span>
+                </span>
+              </div>
+            </div>
+            <p class="ls__label">Progress</p>
+          </article>
+          <article class="ls__card">
+            <div class="ls__demo ls__dots-demo">
+              <span class="ls__dot"></span>
+              <span class="ls__dot"></span>
+              <span class="ls__dot"></span>
+            </div>
+            <p class="ls__label">Dots</p>
+          </article>
+          <article class="ls__card">
+            <div class="ls__demo ls__success-demo">
+              <svg class="ls__success-icon" viewBox="0 0 24 24" focusable="false">
+                <circle class="ls__spinner" cx="12" cy="12" r="9" pathLength="100"></circle>
+                <path class="ls__check" pathLength="40" d="M5 12.5 10 17.5 20 7"></path>
+              </svg>
+            </div>
+            <p class="ls__label">Success</p>
+          </article>
+        </div>
+        <span class="ls__clock" aria-hidden="true"></span>
+      </div>
+      <div class="ls__controls" data-motion-controls hidden><button type="button" data-motion-toggle aria-label="Pause animation">Ⅱ Pause</button><button type="button" data-motion-restart aria-label="Replay animation from the beginning">↺ Replay</button><label><span class="ls__sr-only">Animation position in seconds</span><input data-motion-seek type="range" min="0" max="6" step="0.1" value="0" aria-label="Animation position in seconds"></label><output data-motion-time>0:00 / 0:06</output><label><span class="ls__sr-only">Playback speed</span><select data-motion-speed aria-label="Playback speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option></select></label></div>
+    </section>
+  </main>
+  <footer class="demo-footer">Four loading patterns · <a href="animation.css">View CSS</a></footer>
+  <script type="module" src="../../src/auto.js"></script>
+</body>
+</html>

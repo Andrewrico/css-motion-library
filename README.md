@@ -1,87 +1,108 @@
 # CSS Motion Library
 
-A growing, MIT-licensed collection of reusable HTML and CSS animations. From quiet
-illustrated storyboards to short cinematic sequences. Each entry keeps its own source
-so new experiments never overwrite the good ones.
+[![CI](https://github.com/Andrewrico/css-motion-library/actions/workflows/ci.yml/badge.svg)](https://github.com/Andrewrico/css-motion-library/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-black.svg)](LICENSE)
 
-## Start the gallery
+**Copy-paste CSS animations with a tiny, accessible playback controller.**
+No framework, no build step, no runtime dependencies.
 
-Requires Node.js 22 or newer. No package installation, account, CDN or build step.
+**[Live gallery →](https://andrewrico.github.io/css-motion-library/)**
 
-```sh
-npm run dev
-```
+- **Pure CSS motion.** Every visual is HTML, CSS keyframes and inline SVG. No video files,
+  no web fonts, no animation engine.
+- **Video-style controls when you want them.** A 6 KB, dependency-free ES module (`src/player.js`) adds
+  pause, replay, seeking and playback speed to any CSS animation timeline.
+- **Accessible by default.** Each entry has a readable static version for reduced motion
+  and no-JavaScript, pauses when offscreen or in a background tab, and has no flashing.
+- **Copy one thing.** Each entry is self-contained: one HTML snippet, one CSS file.
 
-Open **http://127.0.0.1:8092**. To change the port: `PORT=8093 npm run dev`.
-You can also serve this folder with any ordinary static server. Use HTTP rather than
-opening the HTML as `file://`, because the shared player is an ES module.
+## The collection
 
-## Collection
-
-| Entry | What it does | Duration | Files |
+| # | Entry | What it is | Loop |
 |---|---|---|---|
-| 001 · Commerce Storyboard | Four illustrated process steps; restrained transitions | 24 seconds | [Demo](examples/001-commerce-storyboard/index.html) · [Notes](examples/001-commerce-storyboard/README.md) |
-| 002 · Commerce Film | Six shots, kinetic typography, wipes, camera moves and a seekable player | 30 seconds | [Demo](examples/002-commerce-film/index.html) · [Notes](examples/002-commerce-film/README.md) |
+| 001 | [Commerce Storyboard](examples/001-commerce-storyboard/) | Four illustrated process steps with restrained transitions | 24s |
+| 002 | [Commerce Film](examples/002-commerce-film/) | Six-shot cinematic sequence: kinetic type, wipes, camera moves | 30s |
+| 003 | [Kinetic Headline](examples/003-kinetic-headline/) | Masked word-by-word hero headline with a hand-drawn underline | 8s |
+| 004 | [Loading States](examples/004-loading-states/) | Skeleton shimmer, progress, bouncing dots, spinner → check | 6s |
+| 005 | [Orbit Diagram](examples/005-orbit-diagram/) | Explainer diagram: satellites orbit a core and highlight in turn | 12s |
 
-`catalog.json` is the machine-readable index. The gallery uses local assets only.
-Entry 001 preserves the first edition; entry 002 is a separate animation, not a rewrite.
+Each entry folder has a README with its timeline, theme variables and customization notes.
+[`catalog.json`](catalog.json) is the machine-readable index.
 
-## Reuse an animation
+## Use an animation
 
-Copy an entry's HTML and `animation.css`. Keep the MIT notice. For entry 002, also copy
-`src/player.js` and initialize it on your player element:
+1. Copy the entry's component markup (the `<section data-motion-player>` block) from its
+   `index.html`, plus its `animation.css`.
+2. Copy [`src/player.js`](src/player.js) and start it:
 
 ```html
+<link rel="stylesheet" href="animation.css">
+<!-- …the entry's <section data-motion-player> markup… -->
 <script type="module">
   import {createMotionPlayer} from './player.js';
-  const player = createMotionPlayer(document.querySelector('[data-motion-player]'));
-  // player.play(); player.pause(); player.seek(12); player.restart();
-  // player.currentTime; player.playing; player.destroy();
+  document.querySelectorAll('[data-motion-player]').forEach(createMotionPlayer);
 </script>
 ```
 
-`src/demo.css` contains the standalone demo's reset and navigation styles. Bring its
-box-sizing reset and font defaults along if your host page does not already provide them.
-All film motion is defined by CSS keyframes. The controller uses native CSSAnimation
-objects to synchronize pause, resume, seeking and playback speed.
+3. Change the copy in the HTML and the colors through the custom properties listed in the
+   entry README (for example `--ink`, `--accent`).
 
-The controller pauses offscreen and in hidden tabs, respects OS reduced-motion preferences,
-and supports the host attribute `data-a11y-reduce-motion="true"`. With reduced motion or
-without JavaScript, the film displays a readable static overview. Controls are native
-buttons, a keyboard-operable range input and a speed select. There is no audio.
+Entry 001 uses its own small inline script instead of the shared player; see its README.
 
-The 002 film includes a host message for iframe visibility. `gallery.js` demonstrates
-sending `{type:'css-motion:visibility', visible:true}` from the same-origin parent. Messages
-from unrelated origins or windows are ignored. Each player instance is independent.
+### Player API
 
-Customize copy in the HTML and colors via `--ink`, `--acid` and `--paper`. The current
-002 storyboard is six five-second shots. Changing shot count or duration requires updating
-the CSS timing percentages and delays as well as the HTML duration and seek range.
+```js
+const player = createMotionPlayer(element); // returns null if the browser lacks support
+player.play();
+player.pause();
+player.seek(4.5);      // seconds
+player.restart();
+player.currentTime;    // seconds
+player.playing;        // boolean
+player.destroy();      // removes listeners and restores the static state
+```
 
-## Dependencies
+The player reads `data-duration` (seconds) from the root and controls every CSS animation
+inside `[data-motion-stage]` as one timeline. It hides its controls and keeps the static
+overview when the user prefers reduced motion or the host sets
+`data-a11y-reduce-motion="true"` on `<html>`. An embedding page can pause an iframe'd entry
+with `postMessage({type: 'css-motion:visibility', visible: false}, origin)` (same origin only).
 
-The core has **zero third-party runtime dependencies**. It uses native CSS animations,
-SVG and the Web Animations API. Modern browsers with container-query units are required
-for the cinematic layout. No React, video files, web fonts or external assets are required.
-See [DEPENDENCIES.md](DEPENDENCIES.md) for the optional animation/tooling choices and
-Animate.css licensing details.
+## Browser support
+
+Current Chrome, Edge, Firefox and Safari. The layouts use container query units (`cqw`) and
+the player uses the Web Animations API (`element.getAnimations()`). Older browsers get the
+static overview.
+
+## Run locally
+
+Requires Node.js 22+. No install needed to view the gallery:
+
+```sh
+npm run dev            # http://127.0.0.1:8092  (PORT=8093 npm run dev to change)
+```
+
+Use HTTP rather than `file://`, because the player is an ES module.
 
 ## Checks
 
 ```sh
-npm test
-npm run check
+npm test               # player state, seeking, preferences, lifecycle (Node test runner)
+npm run check          # catalog, links, local assets, JavaScript syntax
+npm install && npx playwright install chromium
+npm run test:browser   # real Chromium: every entry at 1440×900 and 390×844, seeking,
+                       # reduced motion, no-JS, no console errors, no horizontal scroll
 ```
 
-Tests exercise playback state, seeking, preferences and lifecycle using native Node test
-facilities with animation objects mocked. They do not assert actual browser rendering.
-The asset check validates catalog entries, internal demo assets and JavaScript syntax.
-Before a release, visually inspect each shot at desktop and mobile widths, scrub the
-boundaries at 5/10/15/20/25 seconds, and check reduced motion. Browser visual verification
-is still pending for the initial local snapshot because the authoring browser service
-was unavailable. Do not interpret the Node checks as a screenshot comparison.
+CI runs all three on every push and pull request. The gallery deploys to GitHub Pages
+from `main` after CI passes.
 
 ## Contribute
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Original code is [MIT](LICENSE). Public visual
-inspiration is welcome; copied assets require their own license and attribution.
+New animations are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the entry checklist and
+[DEPENDENCIES.md](DEPENDENCIES.md) before adding any third-party effect. Releases are listed in
+[CHANGELOG.md](CHANGELOG.md).
+
+## License
+
+[MIT](LICENSE) © 2026 Andrew Rico and CSS Motion Library contributors.

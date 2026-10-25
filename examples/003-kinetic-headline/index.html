@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>003 — Kinetic Headline | CSS Motion Library</title>
+  <script>if (new URLSearchParams(location.search).has('embed')) document.documentElement.classList.add('is-embedded');</script>
+  <link rel="stylesheet" href="../../src/demo.css">
+  <link rel="stylesheet" href="animation.css">
+</head>
+<body>
+  <nav class="demo-nav">
+    <a href="../../">← Library</a>
+    <span>003 / Kinetic Headline</span>
+    <a href="../004-loading-states/">Next: Loading States ↗</a>
+  </nav>
+
+  <main>
+    <section class="kh" data-motion-player data-duration="8" aria-labelledby="kh-title">
+      <div class="kh__stage" data-motion-stage>
+        <div class="kh__overview">
+          <div class="kh__content">
+            <div class="kh__eyebrow">INTRODUCING</div>
+            <h1 class="kh__headline" id="kh-title">
+              <span class="kh__line">
+                <span class="kh__word">Make</span>
+                <span class="kh__word">the</span>
+                <span class="kh__word">next</span>
+                <span class="kh__word">thing</span>
+              </span>
+              <span class="kh__line kh__line--second">
+                <span class="kh__word">feel</span>
+                <span class="kh__last">
+                  <span class="kh__word">inevitable.</span>
+                  <svg class="kh__underline" viewBox="0 0 280 18" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                    <path class="kh__underline-path" pathLength="1" d="M4 11 C42 4 78 15 118 8 S188 3 222 9 C242 12 258 10 276 7"></path>
+                  </svg>
+                </span>
+              </span>
+            </h1>
+            <p class="kh__subline">A reusable headline reveal in pure CSS.</p>
+            <span class="kh__pill">Get started →</span>
+          </div>
+        </div>
+
+        <div class="kh__scene" aria-hidden="true">
+          <div class="kh__content kh__content--scene">
+            <div class="kh__eyebrow">INTRODUCING</div>
+            <div class="kh__headline">
+              <span class="kh__line">
+                <span class="kh__mask"><span class="kh__word kh__word--1">Make</span></span>
+                <span class="kh__mask"><span class="kh__word kh__word--2">the</span></span>
+                <span class="kh__mask"><span class="kh__word kh__word--3">next</span></span>
+                <span class="kh__mask"><span class="kh__word kh__word--4">thing</span></span>
+              </span>
+              <span class="kh__line kh__line--second">
+                <span class="kh__mask"><span class="kh__word kh__word--5">feel</span></span>
+                <span class="kh__last">
+                  <span class="kh__mask"><span class="kh__word kh__word--6">inevitable.</span></span>
+                  <svg class="kh__underline" viewBox="0 0 280 18" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                    <path class="kh__underline-path" pathLength="1" d="M4 11 C42 4 78 15 118 8 S188 3 222 9 C242 12 258 10 276 7"></path>
+                  </svg>
+                </span>
+              </span>
+            </div>
+            <p class="kh__subline">A reusable headline reveal in pure CSS.</p>
+            <span class="kh__pill">Get started →</span>
+          </div>
+        </div>
+
+        <span class="kh__clock" aria-hidden="true"></span>
+      </div>
+
+      <div class="kh__controls" data-motion-controls hidden><button type="button" data-motion-toggle aria-label="Pause animation">Ⅱ Pause</button><button type="button" data-motion-restart aria-label="Replay animation from the beginning">↺ Replay</button><label><span class="kh__sr-only">Animation position in seconds</span><input data-motion-seek type="range" min="0" max="8" step="0.1" value="0" aria-label="Animation position in seconds"></label><output data-motion-time>0:00 / 0:08</output><label><span class="kh__sr-only">Playback speed</span><select data-motion-speed aria-label="Playback speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option></select></label></div>
+    </section>
+  </main>
+
+  <footer class="demo-footer">A staged headline reveal with a drawn underline · <a href="animation.css">View CSS</a></footer>
+  <script type="module" src="../../src/auto.js"></script>
+</body>
+</html>

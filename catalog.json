@@ -7,7 +7,12 @@
     "edition": "Original",
     "entry": "examples/001-commerce-storyboard/index.html",
     "styles": "examples/001-commerce-storyboard/animation.css",
-    "tags": ["process", "typography", "cards", "CSS"]
+    "tags": [
+      "process",
+      "typography",
+      "cards",
+      "CSS"
+    ]
   },
   {
     "id": "002-commerce-film",
@@ -17,6 +22,56 @@
     "edition": "New",
     "entry": "examples/002-commerce-film/index.html",
     "styles": "examples/002-commerce-film/animation.css",
-    "tags": ["cinematic", "typography", "CSS", "timeline"]
+    "tags": [
+      "cinematic",
+      "typography",
+      "CSS",
+      "timeline"
+    ]
+  },
+  {
+    "id": "003-kinetic-headline",
+    "title": "Kinetic Headline",
+    "description": "Masked word-by-word headline reveal with a hand-drawn underline and CTA.",
+    "duration": 8,
+    "edition": "New",
+    "entry": "examples/003-kinetic-headline/index.html",
+    "styles": "examples/003-kinetic-headline/animation.css",
+    "tags": [
+      "hero",
+      "typography",
+      "SVG",
+      "CSS"
+    ]
+  },
+  {
+    "id": "004-loading-states",
+    "title": "Loading States",
+    "description": "Skeleton shimmer, progress bar, bouncing dots and a spinner-to-check success state.",
+    "duration": 6,
+    "edition": "New",
+    "entry": "examples/004-loading-states/index.html",
+    "styles": "examples/004-loading-states/animation.css",
+    "tags": [
+      "UI",
+      "loaders",
+      "micro-interaction",
+      "CSS"
+    ]
+  },
+  {
+    "id": "005-orbit-diagram",
+    "title": "Orbit Diagram",
+    "description": "Explainer diagram: satellites orbit a core and highlight one at a time with captions.",
+    "duration": 12,
+    "edition": "New",
+    "entry": "examples/005-orbit-diagram/index.html",
+    "styles": "examples/005-orbit-diagram/animation.css",
+    "tags": [
+      "diagram",
+      "explainer",
+      "SVG",
+      "CSS"
+    ]
   }
 ]

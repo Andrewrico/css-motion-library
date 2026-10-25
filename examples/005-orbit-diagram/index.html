@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>005 — Orbit Diagram | CSS Motion Library</title><script>if (new URLSearchParams(location.search).has('embed')) document.documentElement.classList.add('is-embedded');</script><link rel="stylesheet" href="../../src/demo.css"><link rel="stylesheet" href="animation.css"></head><body><nav class="demo-nav"><a href="../../">← Library</a><span>005 / Orbit Diagram</span><a href="../001-commerce-storyboard/">Back to 001 ↗</a></nav><main>
+  <section class="od" data-motion-player data-duration="12" aria-labelledby="od-title">
+    <h2 class="od__sr-only" id="od-title">How the pieces connect</h2>
+
+    <div class="od__stage" data-motion-stage>
+      <div class="od__overview">
+        <div class="od__overview-copy">
+          <p class="od__eyebrow">Systems diagram</p>
+          <h3>How the pieces connect</h3>
+          <ul class="od__overview-list">
+            <li>Data — collect what matters</li>
+            <li>Design — shape the experience</li>
+            <li>Content — say it clearly</li>
+            <li>Delivery — ship and iterate</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="od__scene" aria-hidden="true">
+        <div class="od__scene-heading">
+          <span class="od__eyebrow">System map</span>
+          <strong>How the pieces connect</strong>
+        </div>
+
+        <div class="od__orbit-frame">
+          <div class="od__orbit">
+            <div class="od__connector-frame">
+              <div class="od__connectors">
+                <div class="od__connector od__connector--data"><span class="od__connector-line"></span></div>
+                <div class="od__connector od__connector--design"><span class="od__connector-line"></span></div>
+                <div class="od__connector od__connector--content"><span class="od__connector-line"></span></div>
+                <div class="od__connector od__connector--delivery"><span class="od__connector-line"></span></div>
+              </div>
+            </div>
+
+            <div class="od__node od__node--data">
+              <div class="od__disc"><span class="od__label">Data</span></div>
+            </div>
+            <div class="od__node od__node--design">
+              <div class="od__disc"><span class="od__label">Design</span></div>
+            </div>
+            <div class="od__node od__node--content">
+              <div class="od__disc"><span class="od__label">Content</span></div>
+            </div>
+            <div class="od__node od__node--delivery">
+              <div class="od__disc"><span class="od__label">Delivery</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="od__core"><span>Core</span></div>
+
+        <div class="od__captions">
+          <p class="od__caption od__caption--data">Data — collect what matters</p>
+          <p class="od__caption od__caption--design">Design — shape the experience</p>
+          <p class="od__caption od__caption--content">Content — say it clearly</p>
+          <p class="od__caption od__caption--delivery">Delivery — ship and iterate</p>
+        </div>
+      </div>
+
+      <span class="od__clock" aria-hidden="true"></span>
+    </div>
+
+    <div class="od__controls" data-motion-controls hidden><button type="button" data-motion-toggle aria-label="Pause animation">Ⅱ Pause</button><button type="button" data-motion-restart aria-label="Replay animation from the beginning">↺ Replay</button><label><span class="od__sr-only">Animation position in seconds</span><input data-motion-seek type="range" min="0" max="12" step="0.1" value="0" aria-label="Animation position in seconds"></label><output data-motion-time>0:00 / 0:12</output><label><span class="od__sr-only">Playback speed</span><select data-motion-speed aria-label="Playback speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option></select></label></div>
+  </section>
+</main><footer class="demo-footer">A rotating systems diagram with sequential highlights · <a href="animation.css">View CSS</a></footer><script type="module" src="../../src/auto.js"></script></body></html>
