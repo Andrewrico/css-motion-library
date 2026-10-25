@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- Player: the time label and seek bar repaint on a timer (10 Hz, 2 Hz in economy) instead of
+  every animation frame, and only when a visible value changed. In the lab this takes label
+  writes from ~60/s to under 1/s and seek-bar writes from ~60/s to ~10/s (2/s economy).
+- Player: motion-quality modes `full`, `economy` and `still` (`data-motion-quality` or
+  `player.quality`). `src/player.js` grows from 6.4 KB to 7.7 KB raw.
+- `npm run measure`: repeatable in-browser measurement lab (payload, repaint writes, frame gaps).
+
 ## 1.0.1 — 2026-10-24
 
 - First npm release. Package exports `css-motion-library/player.js`, every entry file under

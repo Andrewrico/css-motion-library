@@ -13,11 +13,13 @@ function fixture({reduced=false, supported=true}={}) {
   const animations = [animation('mvl-clock'),animation('mvl-shot'),animation('mvl-cut')];
   const element = () => Object.assign(new EventTarget(),{hidden:true,value:'0',textContent:'',style:{setProperty(){}},setAttribute(key,value){this[key]=value;}});
   const controls=element(), toggle=element(), restart=element(), seek=element(), time=element(), speed=element();
+  const timers = [];
   let inView;
   let attributeChange;
   Object.assign(window,{
     location:{origin:'http://localhost:8092'},parent:{},matchMedia:()=>preference,
     requestAnimationFrame:()=>1,cancelAnimationFrame(){},
+    setTimeout(fn,ms){timers.push({fn,ms,live:true});return timers.length;},clearTimeout(id){if(timers[id-1])timers[id-1].live=false;},
     IntersectionObserver:class {constructor(fn){inView=fn;observers.push(this);}observe(){}disconnect(){this.disconnected=true;}},
     MutationObserver:class {constructor(fn){attributeChange=fn;observers.push(this);}observe(){}disconnect(){this.disconnected=true;}}
   });
@@ -25,7 +27,7 @@ function fixture({reduced=false, supported=true}={}) {
   const stage = supported ? {getAnimations:()=>animations} : {};
   const selectors = {'[data-motion-stage]':stage,'[data-motion-controls]':controls,'[data-motion-toggle]':toggle,'[data-motion-restart]':restart,'[data-motion-seek]':seek,'[data-motion-time]':time,'[data-motion-speed]':speed};
   const root = {ownerDocument:document,dataset:{duration:'30'},querySelector:selector=>selectors[selector],classList:{add:(...names)=>names.forEach(name=>classes.add(name)),remove:(...names)=>names.forEach(name=>classes.delete(name)),toggle(name,on){if(on)classes.add(name);else classes.delete(name);}}};
-  return {root,window,document,preference,animations,controls,toggle,restart,seek,time,speed,classes,observers,
+  return {root,window,document,preference,animations,controls,toggle,restart,seek,time,speed,classes,observers,timers,
     visible(value){inView([{isIntersecting:value}]);},
     attribute(value){if(value)attributes.set('data-a11y-reduce-motion','true');else attributes.delete('data-a11y-reduce-motion');attributeChange();},
     message(origin,source,data){const event=new Event('message');Object.assign(event,{origin,source,data});window.dispatchEvent(event);}
@@ -111,4 +113,36 @@ test('unsupported animation API preserves the static fallback; invalid durations
   assert.equal(fallback.classes.has('is-ready'),false); assert.equal(fallback.controls.hidden,true);
   const invalid=fixture(); invalid.root.dataset.duration='Infinity';
   assert.throws(()=>createMotionPlayer(invalid.root),TypeError);
+});
+
+test('UI repaint is throttled by quality mode and skips unchanged values',()=>{
+  const f=fixture(); const player=createMotionPlayer(f.root);
+  let writes=0; let text='';
+  Object.defineProperty(f.time,'textContent',{get:()=>text,set:value=>{text=value;writes++;}});
+  f.visible(true);
+  const live=()=>f.timers.filter(timer=>timer.live);
+  const fire=()=>{const timer=live().at(-1); timer.live=false; timer.fn();};
+  assert.equal(player.quality,'full');
+  assert.deepEqual(live().map(timer=>timer.ms),[100]);
+  fire(); assert.equal(writes,0);
+  f.animations[0].currentTime=2500;
+  fire(); fire(); fire();
+  assert.equal(writes,1); assert.equal(text,'0:02 / 0:30');
+  player.quality='economy';
+  assert.equal(player.quality,'economy'); assert.equal(f.root.dataset.motionQuality,'economy');
+  assert.deepEqual(live().map(timer=>timer.ms),[500]);
+  player.quality='bogus'; assert.equal(player.quality,'full'); assert.deepEqual(live().map(timer=>timer.ms),[100]);
+  player.pause(); assert.equal(live().length,0);
+  player.destroy();
+});
+
+test('still quality starts paused until the viewer presses play, and is picked up from the root',()=>{
+  const f=fixture(); f.root.dataset.motionQuality='still';
+  const player=createMotionPlayer(f.root); f.visible(true);
+  assert.equal(player.quality,'still'); assert.equal(player.playing,false);
+  assert.equal(f.toggle['aria-label'],'Play animation');
+  player.play(); assert.equal(player.playing,true);
+  player.quality='full'; assert.equal(player.playing,true);
+  player.quality='still'; assert.equal(player.playing,false);
+  player.destroy();
 });

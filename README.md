@@ -11,7 +11,7 @@ No framework, no build step, no runtime dependencies.
 
 - **Pure CSS motion.** Every visual is HTML, CSS keyframes and inline SVG. No video files,
   no web fonts, no animation engine.
-- **Video-style controls when you want them.** A 6 KB, dependency-free ES module (`src/player.js`) adds
+- **Video-style controls when you want them.** A 7.7 KB (2.4 KB gzip), dependency-free ES module (`src/player.js`) adds
   pause, replay, seeking and playback speed to any CSS animation timeline.
 - **Accessible by default.** Each entry has a readable static version for reduced motion
   and no-JavaScript, pauses when offscreen or in a background tab, and has no flashing.
@@ -73,6 +73,7 @@ player.seek(4.5);      // seconds
 player.restart();
 player.currentTime;    // seconds
 player.playing;        // boolean
+player.quality;        // 'full' | 'economy' | 'still'; assignable
 player.destroy();      // removes listeners and restores the static state
 ```
 
@@ -96,6 +97,21 @@ Requires Node.js 22+. No install needed to view the gallery:
 npm run dev            # http://127.0.0.1:8092  (PORT=8093 npm run dev to change)
 ```
 
+### Motion quality
+
+The animation runs on the browser's own timeline; the player only repaints its time label and
+seek bar. Quality sets how often, and whether playback starts on its own:
+
+| Mode | Controls repaint | Autoplay |
+|---|---|---|
+| `full` (default) | 10 Hz | yes |
+| `economy` | 2 Hz | yes |
+| `still` | 10 Hz while playing | no, shows the first frame until Play |
+
+Set it with `data-motion-quality="economy"` on the player root or on `<html>`, or at runtime
+with `player.quality = 'economy'`. Unknown values fall back to `full`. The DOM is only written
+when a visible value changed.
+
 Use HTTP rather than `file://`, because the player is an ES module.
 
 ## Checks
@@ -107,6 +123,17 @@ npm install && npx playwright install chromium
 npm run test:browser   # real Chromium: every entry at 1440×900 and 390×844, seeking,
                        # reduced motion, no-JS, no console errors, no horizontal scroll
 ```
+
+```sh
+npm run measure                     # payload + runtime cost of every entry, per quality mode
+npm run measure -- --mp4 film.mp4   # also compare entry 002's payload with a rendered video
+npm run measure -- --json out.json  # keep the raw numbers; --only 003 and --seconds 6 narrow a run
+```
+
+`measure` is a repeatable lab in headless Chromium (1440×900): bytes served (raw, gzip, brotli),
+repaint writes per second for the time label and seek bar, frame gaps, long tasks, animation
+and DOM counts. Frame rates there are relative, same-machine numbers; GPU cost, battery,
+Safari/Firefox and low-end devices are not measured. See `MEASUREMENTS.md`.
 
 CI runs all three on every push and pull request. The gallery deploys to GitHub Pages
 from `main` after CI passes.

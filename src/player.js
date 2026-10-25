@@ -1,3 +1,9 @@
+// How often the time label and seek bar repaint. The animation itself is driven by the browser's
+// compositor, not by this timer, so a lower rate costs smoothness of the controls only.
+// full: 10 Hz · economy: 2 Hz · still: no autoplay (press Play), 10 Hz while playing.
+const UI_INTERVAL = {full: 100, economy: 500, still: 100};
+const normalizeQuality = value => (value in UI_INTERVAL ? value : 'full');
+
 /** A small video-like controller for CSS animations. No animation engine required. */
 export function createMotionPlayer(root) {
   if (root.motionPlayer) return root.motionPlayer;
@@ -18,8 +24,10 @@ export function createMotionPlayer(root) {
   if (!stage.getAnimations || !window.matchMedia) return null;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const cleanup = [];
-  let frame = 0;
-  let userPaused = false;
+  let timer = 0;
+  let quality = normalizeQuality(root.dataset.motionQuality || document.documentElement.getAttribute('data-motion-quality'));
+  let userPaused = quality === 'still';
+  let shown = {};
   let playing = false;
   let destroyed = false;
   let scrubbing = false;
@@ -39,16 +47,25 @@ export function createMotionPlayer(root) {
     target.addEventListener(name, callback);
     cleanup.push(() => target.removeEventListener(name, callback));
   }
+  // Only touch the DOM when a visible value changed.
   function draw() {
     const seconds = getTime();
+    const label = `${formatTime(seconds)} / ${formatTime(duration)}`;
+    const progress = `${Math.round(seconds / duration * 1000) / 10}%`;
     seekInput.value = String(seconds);
-    seekInput.setAttribute('aria-valuetext', `${formatTime(seconds)} of ${formatTime(duration)}`);
-    seekInput.style.setProperty('--progress', `${seconds / duration * 100}%`);
-    timeLabel.textContent = `${formatTime(seconds)} / ${formatTime(duration)}`;
+    if (shown.label !== label) {
+      shown.label = label;
+      timeLabel.textContent = label;
+      seekInput.setAttribute('aria-valuetext', `${formatTime(seconds)} of ${formatTime(duration)}`);
+    }
+    if (shown.progress !== progress) {
+      shown.progress = progress;
+      seekInput.style.setProperty('--progress', progress);
+    }
   }
   function tick() {
     draw();
-    if (playing && !destroyed) frame = window.requestAnimationFrame(tick);
+    if (playing && !destroyed) timer = window.setTimeout(tick, UI_INTERVAL[quality]);
   }
   function sync() {
     if (destroyed) return;
@@ -61,11 +78,11 @@ export function createMotionPlayer(root) {
     toggle.setAttribute('aria-label', userPaused ? 'Play animation' : 'Pause animation');
     if (next !== playing) {
       playing = next;
-      window.cancelAnimationFrame(frame);
+      window.clearTimeout(timer);
       if (playing) {
         const position = Number(clock.currentTime) || 0;
         animations.forEach(animation => { animation.currentTime = position; animation.play(); });
-        frame = window.requestAnimationFrame(tick);
+        timer = window.setTimeout(tick, UI_INTERVAL[quality]);
       } else animations.forEach(animation => animation.pause());
     }
     draw();
@@ -83,11 +100,22 @@ export function createMotionPlayer(root) {
     seek,
     get currentTime() { return getTime(); },
     get playing() { return playing; },
+    get quality() { return quality; },
+    set quality(value) {
+      if (destroyed) return;
+      const next = normalizeQuality(value);
+      if (next === quality) return;
+      quality = next;
+      root.dataset.motionQuality = next;
+      if (next === 'still') userPaused = true;
+      if (playing) { window.clearTimeout(timer); timer = window.setTimeout(tick, UI_INTERVAL[quality]); }
+      sync();
+    },
     destroy() {
       if (destroyed) return;
       destroyed = true;
       playing = false;
-      window.cancelAnimationFrame(frame);
+      window.clearTimeout(timer);
       animations.forEach(animation => animation.cancel());
       cleanup.forEach(remove => remove());
       root.classList.remove('is-ready', 'is-reduced');
